@@ -1,75 +1,88 @@
-# simple-data-pipeline
+# Simple Data Pipeline with Python and Docker
 
-Simple Data Pipeline with Python and Docker
-A straightforward ETL (Extract, Transform, Load) data pipeline implementation using Python and Docker for processing medical datasets.
+A straightforward ETL (Extract, Transform, Load) data pipeline implementation using **Python** and **Docker** for processing medical datasets.
 
-Overview
-This project demonstrates how to build a simple yet effective data pipeline that extracts data from a CSV file, transforms it by cleaning and standardizing the format, and loads the processed data into a new file. The entire pipeline runs in a Docker container for consistent execution across different environments.
+---
 
-Features
-Extract: Read data from CSV files
+## 📌 Overview
+This project demonstrates how to build a simple yet effective data pipeline that:
+- **Extracts** data from a CSV file.
+- **Transforms** it by cleaning and standardizing the format.
+- **Loads** the processed data into a new file.
 
-Transform: Clean data by removing missing values and standardizing column names
+The entire pipeline runs in a Docker container for consistent execution across different environments.
 
-Load: Save processed data to a new CSV file
+---
 
-Containerized: Runs in Docker for environment consistency
+## ✨ Features
+- ✅ **Extract**: Read data from CSV files  
+- ✅ **Transform**: Clean data by removing missing values and standardizing column names  
+- ✅ **Load**: Save processed data to a new CSV file  
+- ✅ **Containerized**: Runs in Docker for environment consistency  
+- ✅ **Simple Setup**: Minimal configuration required  
 
-Simple Setup: Minimal configuration required
+---
 
-Project Structure
-text
+## 📂 Project Structure
 simple-data-pipeline/
 ├── app/
-│   └── pipeline.py          # Main pipeline script
+│ └── pipeline.py # Main pipeline script
 ├── data/
-│   ├── Medicaldataset.csv   # Source dataset
-│   └── CleanedMedicalData.csv # Output (generated)
-├── Dockerfile               # Docker configuration
-├── requirements.txt         # Python dependencies
-├── docker-compose.yml       # Docker Compose configuration
-└── README.md               # This file
-Prerequisites
-Docker and Docker Compose installed on your system
+│ ├── Medicaldataset.csv # Source dataset
+│ └── CleanedMedicalData.csv # Output (generated)
+├── Dockerfile # Docker configuration
+├── requirements.txt # Python dependencies
+├── docker-compose.yml # Docker Compose configuration
+└── README.md # Project documentation
 
-Basic understanding of Python and Docker concepts
 
-Setup and Installation
-Clone or download the project files to your local machine
 
-Ensure the project structure matches the layout shown above
+---
 
-Verify the dataset is placed in the data/ folder as Medicaldataset.csv
+## 🛠️ Prerequisites
+- Docker and Docker Compose installed on your system  
+- Basic understanding of Python and Docker concepts  
 
-Usage
-Running the Pipeline
-Execute the following command from the project root directory:
+---
 
-bash
+## 🚀 Setup and Installation
+1. **Clone or download** the project files to your local machine  
+2. Ensure the project structure matches the layout shown above  
+3. Place your dataset in the `data/` folder as `Medicaldataset.csv`
+
+---
+
+## ▶️ Usage
+
+### Running the Pipeline
+From the project root directory, execute:
+
 docker compose up --build
-Expected Output
-When the pipeline runs successfully, you should see output similar to:
 
-text
-✔ data-pipeline                           Built                                                                                   0.0s 
-✔ Network simple_docker_pipeline_default  Created                                                                                 0.4s 
-✔ Container simple_pipeline_container     Created                                                                                 0.4s 
+✅ Expected Output
+After running, you should see logs similar to:
+
+vbnet
+Copy
+Edit
+✔ data-pipeline                           Built
+✔ Network simple_docker_pipeline_default  Created
+✔ Container simple_pipeline_container     Created
 Attaching to simple_pipeline_container
 simple_pipeline_container  | Data Extraction completed.
 simple_pipeline_container  | Data Transformation completed.
 simple_pipeline_container  | Data Loading completed.
 simple_pipeline_container  | Data pipeline completed successfully.
 simple_pipeline_container exited with code 0
-Results
-After successful execution, you'll find a new file CleanedMedicalData.csv in the data/ folder containing the processed dataset.
+The cleaned dataset will be available in the data/ folder as CleanedMedicalData.csv.
 
-Pipeline Components
-Extract Phase
-Reads the source CSV file from the mounted data directory
+🔍 Pipeline Components
+1. Extract Phase
+Reads the source CSV file from the mounted data/ directory
 
 Uses pandas to load the dataset into memory
 
-Transform Phase
+2. Transform Phase
 Removes rows with missing values using dropna()
 
 Standardizes column names by:
@@ -80,13 +93,13 @@ Replacing spaces with underscores
 
 Trimming whitespace
 
-Load Phase
+3. Load Phase
 Saves the cleaned dataset to a new CSV file
 
 Maintains data integrity without index columns
 
-Dataset Information
-The pipeline processes a medical dataset (Medicaldataset.csv) containing the following features:
+📊 Dataset Information
+The pipeline processes a medical dataset (Medicaldataset.csv) with features like:
 
 Age, Gender, Heart rate
 
@@ -98,80 +111,79 @@ Cardiac markers (CK-MB, Troponin)
 
 Result classification (positive/negative)
 
-The cleaned output (CleanedMedicalData.csv) contains the same data with standardized column names and removed missing values.
+The cleaned output (CleanedMedicalData.csv) contains standardized column names and no missing values.
 
-Docker Configuration
+🐳 Docker Configuration
 Dockerfile
-Based on Python 3.10 slim image
+Based on python:3.10-slim
 
-Installs required dependencies from requirements.txt
+Installs dependencies from requirements.txt
 
-Sets up the working environment in /app
+Sets up the working directory /app
 
 Docker Compose
 Builds the container from the current directory
 
-Mounts the local data/ folder to /data in the container
+Mounts local data/ folder to /data in the container
 
-Provides easy execution with a single command
+Allows easy execution with a single command
 
-Dependencies
-The project uses minimal dependencies listed in requirements.txt:
+📦 Dependencies
+The project uses:
 
-pandas: For data manipulation and CSV operations
+nginx
+Copy
+Edit
+pandas
+(defined in requirements.txt)
 
-Customization
-To adapt this pipeline for your own data:
+⚡ Customization
+Replace the dataset in data/ with your own CSV file
 
-Replace the dataset: Place your CSV file in the data/ folder
+Modify pipeline.py to handle custom transformations
 
-Modify the pipeline: Update pipeline.py to handle your specific data transformation needs
+Update paths as required (input_path & output_path)
 
-Adjust paths: Update the input_path and output_path variables in the script
+Add more dependencies in requirements.txt if needed
 
-Add dependencies: Include any additional libraries in requirements.txt
-
-Troubleshooting
-Common Issues
-File not found: Ensure your dataset is in the data/ folder with the correct filename
-
-Permission errors: Check that Docker has access to your project directory
-
-Build failures: Verify that requirements.txt contains valid package names
+🛠️ Troubleshooting
+Issue	Solution
+File not found	Ensure the dataset is in data/ with the correct filename
+Permission errors	Check Docker access to your project directory
+Build failures	Verify requirements.txt contains valid package names
 
 Debugging
-To debug issues, you can run the container interactively:
+Run the container interactively for debugging:
 
 bash
+Copy
+Edit
 docker run -it --rm -v ./data:/data simple-data-pipeline bash
-Future Enhancements
-This basic pipeline can be extended with:
-
-Database connectivity for data sources and destinations
+🚀 Future Enhancements
+Database connectivity for data sources/destinations
 
 Data validation and quality checks
 
 Error handling and logging
 
-Configuration files for different environments
+Configuration files for multiple environments
 
-Scheduling and automation capabilities
+Scheduling and automation
 
-Monitoring and alerting features
+Monitoring and alerting
 
-Contributing
-Feel free to fork this project and submit improvements. Some areas for contribution:
+🤝 Contributing
+Contributions are welcome!
+Some areas for improvement:
 
 Enhanced error handling
 
-Support for different data formats
+Support for multiple data formats
 
-More sophisticated data transformations
+Advanced transformation logic
 
 Integration with data warehouses
 
-License
+📜 License
 This project is provided as-is for educational and demonstration purposes.
 
-Acknowledgments
-Based on the tutorial by Cornellius Yudha Wijaya, demonstrating practical data pipeline implementation with modern tools.
