@@ -57,16 +57,16 @@ simple-data-pipeline/
 ### Running the Pipeline
 From the project root directory, execute:
 
-\`\`\`bash
+```bash
 docker compose up --build
-\`\`\`
+```
 
 ---
 
 ## ✅ Expected Output
 After running, you should see logs similar to:
 
-
+```
 ✔ data-pipeline                           Built
 ✔ Network simple_docker_pipeline_default  Created
 ✔ Container simple_pipeline_container     Created
@@ -77,7 +77,7 @@ simple_pipeline_container  | Data Loading completed.
 simple_pipeline_container  | Data pipeline completed successfully.
 simple_pipeline_container exited with code 0
 
-
+```
 The cleaned dataset will be available in the `data/` folder as **`CleanedMedicalData.csv`**.
 
 ---
