@@ -24,18 +24,18 @@ The entire pipeline runs in a Docker container for consistent execution across d
 ---
 
 ## 📂 Project Structure
+```
 simple-data-pipeline/
 ├── app/
-│ └── pipeline.py # Main pipeline script
+│   └── pipeline.py             # Main pipeline script
 ├── data/
-│ ├── Medicaldataset.csv # Source dataset
-│ └── CleanedMedicalData.csv # Output (generated)
-├── Dockerfile # Docker configuration
-├── requirements.txt # Python dependencies
-├── docker-compose.yml # Docker Compose configuration
-└── README.md # Project documentation
-
-
+│   ├── Medicaldataset.csv      # Source dataset
+│   └── CleanedMedicalData.csv  # Output (generated)
+├── Dockerfile                  # Docker configuration
+├── requirements.txt            # Python dependencies
+├── docker-compose.yml          # Docker Compose configuration
+└── README.md                   # Project documentation
+```
 
 ---
 
@@ -57,14 +57,16 @@ simple-data-pipeline/
 ### Running the Pipeline
 From the project root directory, execute:
 
+\`\`\`bash
 docker compose up --build
+\`\`\`
 
-✅ Expected Output
+---
+
+## ✅ Expected Output
 After running, you should see logs similar to:
 
-vbnet
-Copy
-Edit
+\`\`\`
 ✔ data-pipeline                           Built
 ✔ Network simple_docker_pipeline_default  Created
 ✔ Container simple_pipeline_container     Created
@@ -74,116 +76,114 @@ simple_pipeline_container  | Data Transformation completed.
 simple_pipeline_container  | Data Loading completed.
 simple_pipeline_container  | Data pipeline completed successfully.
 simple_pipeline_container exited with code 0
-The cleaned dataset will be available in the data/ folder as CleanedMedicalData.csv.
+\`\`\`
 
-🔍 Pipeline Components
-1. Extract Phase
-Reads the source CSV file from the mounted data/ directory
+The cleaned dataset will be available in the `data/` folder as **`CleanedMedicalData.csv`**.
 
-Uses pandas to load the dataset into memory
+---
 
-2. Transform Phase
-Removes rows with missing values using dropna()
+## 🔍 Pipeline Components
 
-Standardizes column names by:
+### 1. **Extract Phase**
+- Reads the source CSV file from the mounted `data/` directory  
+- Uses **pandas** to load the dataset into memory  
 
-Converting to lowercase
+### 2. **Transform Phase**
+- Removes rows with missing values using `dropna()`  
+- Standardizes column names by:
+  - Converting to lowercase  
+  - Replacing spaces with underscores  
+  - Trimming whitespace  
 
-Replacing spaces with underscores
+### 3. **Load Phase**
+- Saves the cleaned dataset to a new CSV file  
+- Maintains data integrity without index columns  
 
-Trimming whitespace
+---
 
-3. Load Phase
-Saves the cleaned dataset to a new CSV file
+## 📊 Dataset Information
+The pipeline processes a medical dataset (`Medicaldataset.csv`) with features like:
+- Age, Gender, Heart rate  
+- Blood pressure measurements (Systolic/Diastolic)  
+- Blood sugar levels  
+- Cardiac markers (CK-MB, Troponin)  
+- Result classification (positive/negative)  
 
-Maintains data integrity without index columns
+The cleaned output (`CleanedMedicalData.csv`) contains standardized column names and no missing values.
 
-📊 Dataset Information
-The pipeline processes a medical dataset (Medicaldataset.csv) with features like:
+---
 
-Age, Gender, Heart rate
+## 🐳 Docker Configuration
 
-Blood pressure measurements (Systolic/Diastolic)
+### **Dockerfile**
+- Based on `python:3.10-slim`  
+- Installs dependencies from `requirements.txt`  
+- Sets up the working directory `/app`
 
-Blood sugar levels
+### **Docker Compose**
+- Builds the container from the current directory  
+- Mounts local `data/` folder to `/data` in the container  
+- Allows easy execution with a single command  
 
-Cardiac markers (CK-MB, Troponin)
+---
 
-Result classification (positive/negative)
-
-The cleaned output (CleanedMedicalData.csv) contains standardized column names and no missing values.
-
-🐳 Docker Configuration
-Dockerfile
-Based on python:3.10-slim
-
-Installs dependencies from requirements.txt
-
-Sets up the working directory /app
-
-Docker Compose
-Builds the container from the current directory
-
-Mounts local data/ folder to /data in the container
-
-Allows easy execution with a single command
-
-📦 Dependencies
+## 📦 Dependencies
 The project uses:
-
-nginx
-Copy
-Edit
+\`\`\`
 pandas
-(defined in requirements.txt)
+\`\`\`
+(defined in `requirements.txt`)
 
-⚡ Customization
-Replace the dataset in data/ with your own CSV file
+---
 
-Modify pipeline.py to handle custom transformations
+## ⚡ Customization
+- Replace the dataset in `data/` with your own CSV file  
+- Modify `pipeline.py` to handle custom transformations  
+- Update paths as required (`input_path` & `output_path`)  
+- Add more dependencies in `requirements.txt` if needed  
 
-Update paths as required (input_path & output_path)
+---
 
-Add more dependencies in requirements.txt if needed
+## 🛠️ Troubleshooting
 
-🛠️ Troubleshooting
-Issue	Solution
-File not found	Ensure the dataset is in data/ with the correct filename
-Permission errors	Check Docker access to your project directory
-Build failures	Verify requirements.txt contains valid package names
+| Issue | Solution |
+|--------|-----------|
+| **File not found** | Ensure the dataset is in `data/` with the correct filename |
+| **Permission errors** | Check Docker access to your project directory |
+| **Build failures** | Verify `requirements.txt` contains valid package names |
 
-Debugging
+### Debugging
 Run the container interactively for debugging:
-
-bash
-Copy
-Edit
+\`\`\`bash
 docker run -it --rm -v ./data:/data simple-data-pipeline bash
-🚀 Future Enhancements
-Database connectivity for data sources/destinations
+\`\`\`
 
-Data validation and quality checks
+---
 
-Error handling and logging
+## 🚀 Future Enhancements
+- Database connectivity for data sources/destinations  
+- Data validation and quality checks  
+- Error handling and logging  
+- Configuration files for multiple environments  
+- Scheduling and automation  
+- Monitoring and alerting  
 
-Configuration files for multiple environments
+---
 
-Scheduling and automation
-
-Monitoring and alerting
-
-🤝 Contributing
-Contributions are welcome!
+## 🤝 Contributing
+Contributions are welcome!  
 Some areas for improvement:
+- Enhanced error handling  
+- Support for multiple data formats  
+- Advanced transformation logic  
+- Integration with data warehouses  
 
-Enhanced error handling
+---
 
-Support for multiple data formats
+## 📜 License
+This project is provided **as-is** for educational and demonstration purposes.
 
-Advanced transformation logic
+---
 
-Integration with data warehouses
-
-📜 License
-This project is provided as-is for educational and demonstration purposes.
-
+## 🙌 Acknowledgments
+Inspired by the tutorial by **Cornellius Yudha Wijaya**, demonstrating practical data pipeline implementation with modern tools.
